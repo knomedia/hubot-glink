@@ -1,0 +1,39 @@
+{
+  "name": "hubot-glink",
+  "version": "0.0.1",
+  "description": "glink - graphite link hubot script",
+  "main": "index.coffee",
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/knomedia/hubot-glink"
+  },
+  "keywords": [
+    "graphite",
+    "glink",
+    "hubot"
+  ],
+  "author": "knomedia@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/knomedia/hubot-glink/issues"
+  },
+  "homepage": "https://github.com/knomedia/hubot-glink",
+  "dependencies": {
+    "glink": "0.0.11"
+  },
+  "peerDependencies": {
+    "hubot": "2.x"
+  },
+  "devDependencies": {
+    "hubot": "2.x",
+    "mocha": "*",
+    "chai": "*",
+    "coffee-script": "1.6.3",
+    "sinon-chai": "*",
+    "sinon": "*",
+    "matchdep": "~0.1.2"
+  }
+}
