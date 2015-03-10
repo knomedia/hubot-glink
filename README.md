@@ -50,3 +50,10 @@ For comma delimited configs be sure to use a space after the comma (i.e.
 `value, other`) as the parsing isn't very forgiving and this will allow you to
 use things like graphite value lists (i.e. `{foo,bar}`) in your configs without
 them being parsed as individual items.
+
+
+## License and Copyright
+
+MIT License
+
+(c) 2015 Jason Madsen
