@@ -14,3 +14,6 @@ describe 'glink', ->
 
   it 'registers a respond listener', ->
     expect(@robot.respond).to.have.been.calledWith(/graphme (.*)/)
+
+  it 'registers a respond listener for teachme', ->
+    expect(@robot.respond).to.have.been.calledWith(/teachme/)
