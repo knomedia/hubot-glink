@@ -6,6 +6,7 @@
 #
 # Commands:
 #   hubot graphme <query> - Builds a graphite link based on applying <query> to  your config
+#   hubot teachme - attempt to teach how to use based on config
 #
 # Configuration:
 #   HUBOT_GLINK_TEMPLATE (i.e stats.timers.!!#controller#!!.!!#action#!!)
@@ -19,33 +20,16 @@
 
 glink = require('glink')
 configurator = require('../lib/configurator')
+contextHelp = require('../lib/contextHelp')
 
 module.exports = (robot) ->
+
+  robot.respond /teachme/, (msg) ->
+    config = configurator(process.env)
+    msg.reply contextHelp.buildHelp(config)
 
   robot.respond /graphme (.*)/, (msg) ->
     config = configurator(process.env)
     args = msg.match[1].split(' ')
     link = glink(config, args) + '&image=.png'
     msg.reply link
-
-
-createCanvasConfig = (params) ->
-  params = params || {}
-  {
-    hostname: 'graphite.insops.net',
-    template: 'stats.timers.canvas.prod.request.!!#controller#!!.!!#action#!!.!!#type#!!',
-    templateDefaults: [
-      "!!#controller#!!===files",
-      "!!#action#!!===index",
-      "!!#type#!!==={mean,median,upper_95}"
-    ],
-    paramsDefaults: params
-  }
-
-defaultParams = ->
-  from: '-1week',
-  width: '550',
-  height: '450',
-  bgcolor: 'black',
-  fgcolor: 'grey',
-  drawNullAsZero: 'true'
