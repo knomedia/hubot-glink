@@ -25,6 +25,30 @@ user1> hubot graphme users index
 hubot> http://graphite.example.com/render?target=some.configed.target.users.index&width=800&.png
 ```
 
+## Aliases
+
+hubot-glink allows for stored aliases. While you can set some defaults for your
+bot via environment configuration variables, chances are members of your team
+are going to want a few "custom" things that only apply to them. They can
+simply create aliases with all the values they want and `run` those aliases
+whenever they want.
+
+```bash
+user1> hubot alias ui as users index --from=-3months --bgcolor=black
+hubot: created alias `ui` for `users index --from=-3months --bgcolor=black`
+user1> hubot alias ui
+hubot: `ui` = `users index --from=-3months --bgcolor=black`
+user1> hubot aliases
+hubot: Aliases:
+
+`ui` = `users index --from=-3months --bgcolor=black`
+
+user1> hubot run ui
+hubot: https://graphite.example.net/render?from=-3months&bgcolor=black&target=foo.users.index&image=.png
+
+# `hubot run ui` is now equivalent to running:
+# `hubot graphme users index --from=-3months --bgcolor=black`
+```
 
 ## Configuration
 
