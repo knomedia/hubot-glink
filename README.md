@@ -1,5 +1,7 @@
 # hubot-glink
 
+[![Build Status](https://travis-ci.org/knomedia/hubot-glink.svg?branch=master)](https://travis-ci.org/knomedia/hubot-glink)
+
 A hubot script for building graphite links
 
 See [`src/glink.coffee`](src/glink.coffee) for full documentation.
