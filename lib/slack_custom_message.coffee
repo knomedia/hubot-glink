@@ -9,8 +9,7 @@ module.exports = (robot, msg, link, title) ->
     fallback = link
 
   data = {
-    channel: robot.adapter.client.channels[msg.message.rawMessage.channel].name,
-    attachments: [ attachment ],
+    message: msg,
+    attachments: [ attachment ]
   }
   robot.adapter.customMessage data
-
