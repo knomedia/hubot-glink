@@ -22,12 +22,16 @@
 #   HUBOT_GLINK_PROTOCOL [optional]
 #   HUBOT_GLINK_PORT [optional]
 #   HUBOT_GLINK_TEMPLATE_DEFAULT_DELIMITER [optional] (defaults to ===)
+#   HUBOT_GLINK_USE_SLACK_API [optional] (defaults to false) prettier posts for Slack via the API
+#   HUBOT_GLINK_SLACK_IMAGES [optional] (default to false) attempt to pull images into Slack (assumes your graphite links are accessible to slack)
+#   HUBOT_GLINK_SLACK_COLOR [optional] (defaults to #CCC)
 #   see https://github.com/knomedia/glink for more info on configs
 
 glink = require('glink')
 configurator = require('../lib/configurator')
 contextHelp = require('../lib/contextHelp')
 Namespacer = require('../lib/namespacer')
+slackCustomMessage = require('../lib/slack_custom_message')
 
 
 module.exports = (robot) ->
@@ -42,7 +46,11 @@ module.exports = (robot) ->
     config = configurator(process.env)
     args = msg.match[1].split(' ')
     link = glink(config, args) + '&image=.png'
-    msg.reply link
+    if process.env.HUBOT_GLINK_USE_SLACK_API == 'true'
+      slackCustomMessage robot, msg, link, args.join(' ')
+    else
+      msg.reply link
+
 
   robot.respond /run (.*)/, (msg) ->
     friendlyName = msg.match[1].trim()
@@ -52,7 +60,10 @@ module.exports = (robot) ->
       config = configurator(process.env)
       args = aliasValue.split(' ')
       link = glink(config, args) + '&image=.png'
-      msg.reply link
+      if process.env.HUBOT_GLINK_USE_SLACK_API == 'true'
+        slackCustomMessage robot, msg, link, args.join(' ')
+      else
+        msg.reply link
     else
       msg.reply ':bomb: no `' + friendlyName + '` alias found'
 
