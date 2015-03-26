@@ -6,7 +6,7 @@ module.exports = (robot, msg, link, title) ->
   }
   if process.env.HUBOT_GLINK_SLACK_IMAGES == 'true'
     attachment.image_url = link
-    fallback = link
+    attachment.fallback = link
 
   data = {
     message: msg,
