@@ -10,4 +10,13 @@ module.exports = (env) ->
   config.port = env.HUBOT_GLINK_PORT if env.HUBOT_GLINK_PORT
   config.protocol = env.HUBOT_GLINK_PROTOCOL if env.HUBOT_GLINK_PROTOCOL
   config.templateDefaultDelimiter = env.HUBOT_GLINK_TEMPLATE_DEFAULT_DELIMITER if env.HUBOT_GLINK_TEMPLATE_DEFAULT_DELIMITER
-  config
+
+  if env.HUBOT_GLINK_CREDS
+    creds = env.HUBOT_GLINK_CREDS + '@'
+    authdConfig = JSON.parse(JSON.stringify(config))
+    authdConfig.hostname = creds + authdConfig.hostname
+
+  {
+    config: config,
+    authdConfig: authdConfig
+  }

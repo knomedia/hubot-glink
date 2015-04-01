@@ -73,6 +73,7 @@ HUBOT_GLINK_TEMPLATE_DEFAULT_DELIMITER | optional (defaults to ===)
 HUBOT_GLINK_USE_SLACK_API              | optional, prettier posts for Slack via the API
 HUBOT_GLINK_SLACK_IMAGES               | optional (default false), attempt to pull images into Slack
 HUBOT_GLINK_SLACK_COLOR                | optional (default #CCC), color for Slack API post
+HUBOT_GLINK_CREDS                      | optional (i.e. `user:password`) will be inserted into graphite url for Slack image posts
 
 
 For comma delimited configs be sure to use a space after the comma (i.e.

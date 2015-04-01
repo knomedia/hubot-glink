@@ -25,6 +25,7 @@
 #   HUBOT_GLINK_USE_SLACK_API [optional] (defaults to false) prettier posts for Slack via the API
 #   HUBOT_GLINK_SLACK_IMAGES [optional] (default to false) attempt to pull images into Slack (assumes your graphite links are accessible to slack)
 #   HUBOT_GLINK_SLACK_COLOR [optional] (defaults to #CCC)
+#   HUBOT_GLINK_CREDS [optional] basic auth creds (i.e. `user:password`) will be inserted into graphite url for Slack image posts
 #   see https://github.com/knomedia/glink for more info on configs
 
 glink = require('glink')
@@ -39,15 +40,18 @@ module.exports = (robot) ->
   ns = new Namespacer('_glink_key_')
 
   robot.respond /teachme/, (msg) ->
-    config = configurator(process.env)
+    config = configurator(process.env).config
     msg.reply contextHelp.buildHelp(config)
 
   robot.respond /graphme (.*)/, (msg) ->
-    config = configurator(process.env)
+    configs = configurator(process.env)
+    config = configs.config
+    authdConfig = configs.authdConfig
     args = msg.match[1].split(' ')
     link = glink(config, args) + '&image=.png'
+    authdLink = glink(authdConfig, args) + '&image=.png'
     if process.env.HUBOT_GLINK_USE_SLACK_API == 'true'
-      slackCustomMessage robot, msg, link, args.join(' ')
+      slackCustomMessage robot, msg, link, authdLink, 'graphme ' + args.join(' ')
     else
       msg.reply link
 
@@ -57,11 +61,14 @@ module.exports = (robot) ->
     alias = ns.prepend(friendlyName)
     aliasValue = robot.brain.get(alias)
     if !!aliasValue
-      config = configurator(process.env)
+      configs = configurator(process.env)
+      config = configs.config
+      authdConfig = configs.authdConfig
       args = aliasValue.split(' ')
       link = glink(config, args) + '&image=.png'
+      authdLink = glink(authdConfig, args) + '&image=.png'
       if process.env.HUBOT_GLINK_USE_SLACK_API == 'true'
-        slackCustomMessage robot, msg, link, args.join(' ')
+        slackCustomMessage robot, msg, link, authdLink, 'graphme ' + args.join(' ')
       else
         msg.reply link
     else
