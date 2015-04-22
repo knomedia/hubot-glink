@@ -89,3 +89,25 @@ describe 'configurator', ->
       }
     }
     assert.deepEqual(configurator(env).authdConfig, expected)
+
+  it 'creates credless authdConfig when no HUBOT_GLINK_CREDS present', ->
+    env = {
+      HUBOT_GLINK_TEMPLATE: 'some.template.value.##!one!##.##!two!##',
+      HUBOT_GLINK_TEMPLATE_DEFAULTS: '##!one!##===users, ##!two!##===index',
+      HUBOT_GLINK_HOSTNAME: 'graphite.example.com',
+      HUBOT_GLINK_DEFAULT_PARAMS: 'from:-3months, width:450, height:250',
+    }
+    expected = {
+      hostname: 'graphite.example.com',
+      template: 'some.template.value.##!one!##.##!two!##',
+      templateDefaults: [
+        '##!one!##===users'
+        '##!two!##===index'
+      ],
+      paramsDefaults: {
+        from: '-3months',
+        width: '450',
+        height: '250'
+      }
+    }
+    assert.deepEqual(configurator(env).authdConfig, expected)
