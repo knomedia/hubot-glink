@@ -1,6 +1,6 @@
 {
   "name": "hubot-glink",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "glink - graphite link hubot script",
   "main": "index.coffee",
   "scripts": {

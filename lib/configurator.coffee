@@ -10,7 +10,7 @@ module.exports = (env) ->
   config.port = env.HUBOT_GLINK_PORT if env.HUBOT_GLINK_PORT
   config.protocol = env.HUBOT_GLINK_PROTOCOL if env.HUBOT_GLINK_PROTOCOL
   config.templateDefaultDelimiter = env.HUBOT_GLINK_TEMPLATE_DEFAULT_DELIMITER if env.HUBOT_GLINK_TEMPLATE_DEFAULT_DELIMITER
-  config.absoluteTimes = env.HUBOT_GLINK_ABSOLUTE_TIMES
+  config.absoluteTimes = env.HUBOT_GLINK_ABSOLUTE_TIMES || false
 
   authdConfig = JSON.parse(JSON.stringify(config))
   if env.HUBOT_GLINK_CREDS

@@ -13,7 +13,8 @@ describe 'configurator', ->
       hostname: 'graphite.example.com',
       template: 'template.not.set',
       templateDefaults: [],
-      paramsDefaults: {}
+      paramsDefaults: {},
+      absoluteTimes: false
     }
     assert.deepEqual(configurator({}).config, expected)
 
@@ -35,7 +36,8 @@ describe 'configurator', ->
         from: '-3months',
         width: '450',
         height: '250'
-      }
+      },
+      absoluteTimes: false
     }
     assert.deepEqual(configurator(env).config, expected)
 
@@ -63,7 +65,8 @@ describe 'configurator', ->
         from: '-3months',
         width: '450',
         height: '250'
-      }
+      },
+      absoluteTimes: false
     }
     assert.deepEqual(configurator(env).config, expected)
 
@@ -86,7 +89,8 @@ describe 'configurator', ->
         from: '-3months',
         width: '450',
         height: '250'
-      }
+      },
+      absoluteTimes: false
     }
     assert.deepEqual(configurator(env).authdConfig, expected)
 
@@ -108,6 +112,7 @@ describe 'configurator', ->
         from: '-3months',
         width: '450',
         height: '250'
-      }
+      },
+      absoluteTimes: false
     }
     assert.deepEqual(configurator(env).authdConfig, expected)
