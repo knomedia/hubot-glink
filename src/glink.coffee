@@ -26,6 +26,7 @@
 #   HUBOT_GLINK_SLACK_IMAGES [optional] (default to false) attempt to pull images into Slack (assumes your graphite links are accessible to slack)
 #   HUBOT_GLINK_SLACK_COLOR [optional] (defaults to #CCC)
 #   HUBOT_GLINK_CREDS [optional] basic auth creds (i.e. `user:password`) will be inserted into graphite url for Slack image posts
+#   HUBOT_GLINK_ABSOLUTE_TIMES [optional] convert relative times to absolute when generating links
 #   see https://github.com/knomedia/glink for more info on configs
 
 glink = require('glink')
