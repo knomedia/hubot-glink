@@ -64,8 +64,8 @@ more information as these configs map somewhat to the configuration of `glink`)
 Config Var Name                            | Note
 -------------------------------------      | ---------------------------------------------------
 HUBOT_GLINK_DEFAULT_APP                    | the default appname to be used when no --app is specified
-HUBOT_GLINK_<appname>_TEMPLATE             | i.e. `stats.timers.!!#controller#!!.!!#action#!!`
-HUBOT_GLINK_<appname>_TEMPLATE_DEFAULTS    | (comma delimited i.e. `!!#controller===users#!!, #!!action===index#!!`
+HUBOT_GLINK_[appname]_TEMPLATE             | i.e. `stats.timers.!!#controller#!!.!!#action#!!`
+HUBOT_GLINK_[appname]_TEMPLATE_DEFAULTS    | (comma delimited i.e. `!!#controller===users#!!, #!!action===index#!!`
 HUBOT_GLINK_HOSTNAME                       |
 HUBOT_GLINK_DEFAULT_PARAMS                 | optional (comma delimited i.e.: `from:-1week, width:800`)
 HUBOT_GLINK_PROTOCOL                       | optional
