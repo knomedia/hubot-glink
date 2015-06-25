@@ -69,7 +69,7 @@ module.exports = (robot) ->
     if !!aliasValue
       args = aliasValue.split(' ')
       app = getAppName(process.env, args)
-      configs = configurator(process.env)
+      configs = configurator(process.env, app)
       config = configs.config
       authdConfig = configs.authdConfig
       link = glink(config, args) + '&image=.png'

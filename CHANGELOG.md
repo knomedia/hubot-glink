@@ -1,3 +1,7 @@
+## V 0.1.1 - 0.1.2
+
+* fixed bug where running aliases would error with alt applications
+
 ## V 0.1.0
 
 Added multi app support. This release removes the following ENV vars:
