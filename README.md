@@ -61,25 +61,32 @@ your project (See the [glink project](https://github.com/knomedia/glink) for
 more information as these configs map somewhat to the configuration of `glink`)
 
 
-Config Var Name                        | Note
--------------------------------------  | ---------------------------------------------------
-HUBOT_GLINK_TEMPLATE                   | i.e. `stats.timers.!!#controller#!!.!!#action#!!`
-HUBOT_GLINK_TEMPLATE_DEFAULTS          | (comma delimited i.e. `!!#controller===users#!!, #!!action===index#!!`
-HUBOT_GLINK_HOSTNAME                   |
-HUBOT_GLINK_DEFAULT_PARAMS             | optional (comma delimited i.e.: `from:-1week, width:800`)
-HUBOT_GLINK_PROTOCOL                   | optional
-HUBOT_GLINK_PORT                       | optional
-HUBOT_GLINK_TEMPLATE_DEFAULT_DELIMITER | optional (defaults to ===)
-HUBOT_GLINK_USE_SLACK_API              | optional, prettier posts for Slack via the API
-HUBOT_GLINK_SLACK_IMAGES               | optional (default false), attempt to pull images into Slack
-HUBOT_GLINK_SLACK_COLOR                | optional (default #CCC), color for Slack API post
-HUBOT_GLINK_CREDS                      | optional (i.e. `user:password`) will be inserted into graphite url for Slack image posts
+Config Var Name                            | Note
+-------------------------------------      | ---------------------------------------------------
+HUBOT_GLINK_DEFAULT_APP                    | the default appname to be used when no --app is specified
+HUBOT_GLINK_<appname>_TEMPLATE             | i.e. `stats.timers.!!#controller#!!.!!#action#!!`
+HUBOT_GLINK_<appname>_TEMPLATE_DEFAULTS    | (comma delimited i.e. `!!#controller===users#!!, #!!action===index#!!`
+HUBOT_GLINK_HOSTNAME                       |
+HUBOT_GLINK_DEFAULT_PARAMS                 | optional (comma delimited i.e.: `from:-1week, width:800`)
+HUBOT_GLINK_PROTOCOL                       | optional
+HUBOT_GLINK_PORT                           | optional
+HUBOT_GLINK_TEMPLATE_DEFAULT_DELIMITER     | optional (defaults to ===)
+HUBOT_GLINK_USE_SLACK_API                  | optional, prettier posts for Slack via the API
+HUBOT_GLINK_SLACK_IMAGES                   | optional (default false), attempt to pull images into Slack
+HUBOT_GLINK_SLACK_COLOR                    | optional (default #CCC), color for Slack API post
+HUBOT_GLINK_CREDS                          | optional (i.e. `user:password`) will be inserted into graphite url for Slack image posts
 
 
 For comma delimited configs be sure to use a space after the comma (i.e.
 `value, other`) as the parsing isn't very forgiving and this will allow you to
 use things like graphite value lists (i.e. `{foo,bar}`) in your configs without
 them being parsed as individual items.
+
+
+Now that hubot-glink supports multiple application configs, it's important to
+note that users will need to pass along an extra param, `--app` to specify the
+application's config they what hubot to use. When users don't pass along
+`--app`, the `HUBOT_GLINK_DEFAULT_APP` will be used instead.
 
 
 ## License and Copyright

@@ -6,8 +6,8 @@
 #
 # Commands:
 #   hubot graphme <query> - Builds a graphite link based on applying <query> to  your config
-#   hubot teachme - attempt to teach how to use based on config
-#   hubut alias <name> as <query> - builds an alias for easy usage later
+#   hubot teachme <--app=appname> - attempt to teach how to use based on config and appname
+#   hubot alias <name> as <query> - builds an alias for easy usage later
 #   hubot alias <name> - display an alias
 #   hubot run <alias> - run a graphme query using the given alias
 #   hubot unalias <name> - remove an alias
@@ -15,8 +15,9 @@
 #   hubot aliases - list known aliases
 #
 # Configuration:
-#   HUBOT_GLINK_TEMPLATE (i.e stats.timers.!!#controller#!!.!!#action#!!)
-#   HUBOT_GLINK_TEMPLATE_DEFAULTS (comma delimited i.e.: !!#controller===users#!!, #!!action===index#!!)
+#   HUBOT_GLINK_DEFAULT_APP (the appname to use when no --app is specified)
+#   HUBOT_GLINK_<appname>_TEMPLATE (i.e stats.timers.!!#controller#!!.!!#action#!!)
+#   HUBOT_GLINK_<appname>_TEMPLATE_DEFAULTS (comma delimited i.e.: !!#controller===users#!!, #!!action===index#!!)
 #   HUBOT_GLINK_HOSTNAME
 #   HUBOT_GLINK_DEFAULT_PARAMS [optional] (comma delimited i.e.: from:-1week, width:800)
 #   HUBOT_GLINK_PROTOCOL [optional]
@@ -34,21 +35,25 @@ configurator = require('../lib/configurator')
 contextHelp = require('../lib/contextHelp')
 Namespacer = require('../lib/namespacer')
 slackCustomMessage = require('../lib/slack_custom_message')
+getAppName = require('../lib/getAppName')
 
 
 module.exports = (robot) ->
 
   ns = new Namespacer('_glink_key_')
 
-  robot.respond /teachme/, (msg) ->
-    config = configurator(process.env).config
-    msg.reply contextHelp.buildHelp(config)
+  robot.respond /teachme(\s.*)?/, (msg) ->
+    args = if msg.match[1] then msg.match[1].split(' ') else []
+    app = getAppName(process.env, args)
+    config = configurator(process.env, app).config
+    msg.reply contextHelp.buildHelp(config, app)
 
   robot.respond /graphme (.*)/, (msg) ->
-    configs = configurator(process.env)
+    args = msg.match[1].split(' ')
+    app = getAppName(process.env, args)
+    configs = configurator(process.env, app)
     config = configs.config
     authdConfig = configs.authdConfig
-    args = msg.match[1].split(' ')
     link = glink(config, args) + '&image=.png'
     authdLink = glink(authdConfig, args) + '&image=.png'
     if process.env.HUBOT_GLINK_USE_SLACK_API == 'true'
@@ -62,10 +67,11 @@ module.exports = (robot) ->
     alias = ns.prepend(friendlyName)
     aliasValue = robot.brain.get(alias)
     if !!aliasValue
+      args = aliasValue.split(' ')
+      app = getAppName(process.env, args)
       configs = configurator(process.env)
       config = configs.config
       authdConfig = configs.authdConfig
-      args = aliasValue.split(' ')
       link = glink(config, args) + '&image=.png'
       authdLink = glink(authdConfig, args) + '&image=.png'
       if process.env.HUBOT_GLINK_USE_SLACK_API == 'true'

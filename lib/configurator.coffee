@@ -1,11 +1,18 @@
 createDefaultParams = require('./createDefaultParams')
 createTemplateDefaults = require('./createTemplateDefaults')
 
-module.exports = (env) ->
+
+getTemplateName = (app) ->
+  'HUBOT_GLINK_' + app + '_TEMPLATE'
+
+
+module.exports = (env, app) ->
+  app = app.toUpperCase()
+  templateName = getTemplateName(app)
   config =
     hostname: env.HUBOT_GLINK_HOSTNAME || 'graphite.example.com',
-    template: env.HUBOT_GLINK_TEMPLATE || 'template.not.set',
-    templateDefaults: createTemplateDefaults(env),
+    template: env[templateName] || 'template.not.set',
+    templateDefaults: createTemplateDefaults(env, app),
     paramsDefaults: createDefaultParams(env)
   config.port = env.HUBOT_GLINK_PORT if env.HUBOT_GLINK_PORT
   config.protocol = env.HUBOT_GLINK_PROTOCOL if env.HUBOT_GLINK_PROTOCOL

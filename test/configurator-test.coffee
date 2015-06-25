@@ -16,12 +16,13 @@ describe 'configurator', ->
       paramsDefaults: {},
       absoluteTimes: false
     }
-    assert.deepEqual(configurator({}).config, expected)
+    assert.deepEqual(configurator({}, '').config, expected)
 
   it 'gives out appropriate config given appropriate env', ->
     env = {
-      HUBOT_GLINK_TEMPLATE: 'some.template.value.##!one!##.##!two!##',
-      HUBOT_GLINK_TEMPLATE_DEFAULTS: '##!one!##===users, ##!two!##===index',
+      HUBOT_GLINK_DEFAULT_APP: 'MYAPP',
+      HUBOT_GLINK_MYAPP_TEMPLATE: 'some.template.value.##!one!##.##!two!##',
+      HUBOT_GLINK_MYAPP_TEMPLATE_DEFAULTS: '##!one!##===users, ##!two!##===index',
       HUBOT_GLINK_HOSTNAME: 'graphite.example.com',
       HUBOT_GLINK_DEFAULT_PARAMS: 'from:-3months, width:450, height:250',
     }
@@ -39,12 +40,13 @@ describe 'configurator', ->
       },
       absoluteTimes: false
     }
-    assert.deepEqual(configurator(env).config, expected)
+    assert.deepEqual(configurator(env, 'MYAPP').config, expected)
 
   it 'includes optional params when they exist', ->
     env = {
-      HUBOT_GLINK_TEMPLATE: 'some.template.value.##!one!##.##!two!##',
-      HUBOT_GLINK_TEMPLATE_DEFAULTS: '##!one!##===users, ##!two!##===index',
+      HUBOT_GLINK_DEFAULT_APP: 'MYAPP'
+      HUBOT_GLINK_MYAPP_TEMPLATE: 'some.template.value.##!one!##.##!two!##',
+      HUBOT_GLINK_MYAPP_TEMPLATE_DEFAULTS: '##!one!##===users, ##!two!##===index',
       HUBOT_GLINK_HOSTNAME: 'graphite.example.com',
       HUBOT_GLINK_DEFAULT_PARAMS: 'from:-3months, width:450, height:250',
       HUBOT_GLINK_PROTOCOL: 'http',
@@ -68,12 +70,13 @@ describe 'configurator', ->
       },
       absoluteTimes: false
     }
-    assert.deepEqual(configurator(env).config, expected)
+    assert.deepEqual(configurator(env, 'MYAPP').config, expected)
 
   it 'creates authdConfig when HUBOT_GLINK_CREDS is present', ->
     env = {
-      HUBOT_GLINK_TEMPLATE: 'some.template.value.##!one!##.##!two!##',
-      HUBOT_GLINK_TEMPLATE_DEFAULTS: '##!one!##===users, ##!two!##===index',
+      HUBOT_GLINK_DEFAULT_APP: 'MYAPP'
+      HUBOT_GLINK_MYAPP_TEMPLATE: 'some.template.value.##!one!##.##!two!##',
+      HUBOT_GLINK_MYAPP_TEMPLATE_DEFAULTS: '##!one!##===users, ##!two!##===index',
       HUBOT_GLINK_HOSTNAME: 'graphite.example.com',
       HUBOT_GLINK_DEFAULT_PARAMS: 'from:-3months, width:450, height:250',
       HUBOT_GLINK_CREDS: 'user:password'
@@ -92,12 +95,13 @@ describe 'configurator', ->
       },
       absoluteTimes: false
     }
-    assert.deepEqual(configurator(env).authdConfig, expected)
+    assert.deepEqual(configurator(env, 'MYAPP').authdConfig, expected)
 
   it 'creates credless authdConfig when no HUBOT_GLINK_CREDS present', ->
     env = {
-      HUBOT_GLINK_TEMPLATE: 'some.template.value.##!one!##.##!two!##',
-      HUBOT_GLINK_TEMPLATE_DEFAULTS: '##!one!##===users, ##!two!##===index',
+      HUBOT_GLINK_DEFAULT_APP: 'MYAPP'
+      HUBOT_GLINK_MYAPP_TEMPLATE: 'some.template.value.##!one!##.##!two!##',
+      HUBOT_GLINK_MYAPP_TEMPLATE_DEFAULTS: '##!one!##===users, ##!two!##===index',
       HUBOT_GLINK_HOSTNAME: 'graphite.example.com',
       HUBOT_GLINK_DEFAULT_PARAMS: 'from:-3months, width:450, height:250',
     }
@@ -115,4 +119,4 @@ describe 'configurator', ->
       },
       absoluteTimes: false
     }
-    assert.deepEqual(configurator(env).authdConfig, expected)
+    assert.deepEqual(configurator(env, 'MYAPP').authdConfig, expected)

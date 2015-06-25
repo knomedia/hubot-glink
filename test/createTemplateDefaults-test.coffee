@@ -8,9 +8,9 @@ assert = chai.assert
 
 describe 'createTemplateDefaults', ->
 
-  it 'returns an empty array when no HUBOT_GLINK_TEMPLATE_DEFAULTS', ->
-    assert.deepEqual(createTemplateDefaults({}), [])
+  it 'returns an empty array when no HUBOT_GLINK_<appname>_TEMPLATE_DEFAULTS', ->
+    assert.deepEqual(createTemplateDefaults({}, 'UNKNOWN'), [])
 
   it 'returns correct template defaults when availabe in env', ->
-    env  = {HUBOT_GLINK_TEMPLATE_DEFAULTS: '!!#controller===users#!!, #!!action===index#!!'}
-    assert.deepEqual(createTemplateDefaults(env), ['!!#controller===users#!!', '#!!action===index#!!'])
+    env  = {HUBOT_GLINK_MYAPP_TEMPLATE_DEFAULTS: '!!#controller===users#!!, #!!action===index#!!'}
+    assert.deepEqual(createTemplateDefaults(env, 'MYAPP'), ['!!#controller===users#!!', '#!!action===index#!!'])

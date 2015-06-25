@@ -17,16 +17,21 @@ getDescriptions =  (config) ->
     paramsDefaults: paramsDefaults
   }
 
-buildHelp = (config) ->
-  desc = getDescriptions(config)
-  output = 'Here goes \n\n'
-  output += '```'
-  output += buildArgsExample(desc)
-  output += "\n\n\n"
-  output += buildParamsHelp(desc)
-  output += "\n\n\n"
-  output += buildDefaultsExample(desc)
-  output += '```'
+buildHelp = (config, app) ->
+  try
+    desc = getDescriptions(config)
+    output = '```\n'
+    output += "Docs for " + app + "\n\n"
+    output += "To view docs for other configured apps, include:\n"
+    output += "    --app=<appname>\n\n"
+    output += buildArgsExample(desc)
+    output += "\n\n\n"
+    output += buildParamsHelp(desc)
+    output += "\n\n\n"
+    output += buildDefaultsExample(desc)
+    output += '\n```'
+  catch error
+    output = '/o\\ ouch it appears that ' + app + ' is not configured, or configured improperly :bomb:'
   output
 
 buildArgsExample = (desc) ->
