@@ -115,5 +115,5 @@ module.exports = (robot) ->
     data = robot.brain.data._private
     Object.keys(data).forEach (key) ->
       if ns.inNS(key)
-        output += '`' + ns.clear(key) + '` = `' + data[key] + '`\n'
+        output += '`' + ns.clear(key) + '`\n'
     msg.reply output
